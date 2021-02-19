@@ -1,0 +1,20 @@
+.App_header {
+    background-color: aquamarine;
+    padding: 1vh;
+    font-size: x-large;
+    width: 100%;
+}
+
+.App_header a {
+    color: black;
+    text-decoration: none;
+    text-align: center;
+    font-size: 120%;
+}
+
+.App_main {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    place-items: center;
+}

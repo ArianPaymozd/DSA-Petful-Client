@@ -1,0 +1,44 @@
+.Adopt_main {
+    display: flex;
+}
+
+.pet_container {
+    width: 100%;
+    display: flex;
+    margin-left: 10vh;
+}
+
+.pet_content {
+    list-style: none;
+    font-size: x-large;
+    padding: 1vw;
+    margin-right: 10vh;
+    background-color: aquamarine;
+    border-radius: 12px;
+}
+
+.pet_img {
+    width: 25vw;
+    border-radius: 12px;
+}
+
+li {
+    margin-bottom: 2vh;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    border-radius: 8px;
+    border: 3px solid black;
+    margin-bottom: 1vh;
+}
+
+button {
+    background-color: aquamarine;
+    height: 5vh;
+    border-radius: 12px;
+}

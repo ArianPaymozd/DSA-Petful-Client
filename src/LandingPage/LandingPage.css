@@ -1,0 +1,32 @@
+.Landing_img {
+    width: 70vh;
+    border-radius: 8px;
+}
+
+.Landing_main {
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.Landing_content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.Landing_text {
+    width: 40%;
+    font-size: xx-large;
+}
+
+.adopt_link {
+    font-size: x-large;
+    text-decoration: none;
+    color: black;
+    background-color: aquamarine;
+    padding: 1.5vw;
+    border-radius: 12px;
+}
