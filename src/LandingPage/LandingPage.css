@@ -35,6 +35,7 @@
 @media only screen and (max-width: 500px) {
     .Landing_img {
         height: 50%;
+        margin: 2vh;
     }
 
     .Landing_content {
