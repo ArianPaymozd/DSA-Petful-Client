@@ -6,7 +6,10 @@ import './AdoptionPage.css'
 export default class AdoptionPage extends React.Component {
     state = {
         pets: [],
-        people: []
+        people: [],
+        added: [],
+        names: ['Max', 'Paulina', 'Tommy', 'Mike', 'Brad', 'Tanner', 'Brandon'],
+        adopted: false
     }
 
     componentDidMount() {
@@ -46,6 +49,7 @@ export default class AdoptionPage extends React.Component {
                 person: e.target['person_name'].value
             })
         })
+        e.target['person_name'].value = ''
         
     }
 
@@ -61,13 +65,26 @@ export default class AdoptionPage extends React.Component {
             })
             this.handleAdopt(type[Math.floor(Math.random() * 3)])
         }
-        
+    }
+
+    uniqueName = () => {
+        let uniqueIndex = Math.floor(Math.random() * this.state.names.length)
+        if (!this.state.added.includes(uniqueIndex)) {
+            return uniqueIndex
+        } else {
+            this.uniqueName()
+        }
     }
 
     handleLineAdd = () => {
-        const names = ['Max', 'Paulina', 'Tommy', 'Mike', 'Brad', 'Tanner', 'Brandon']
-        const newPerson = names[Math.floor(Math.random() * names.length)]
+        let namesIndex = this.uniqueName()
+        const newPerson = this.state.names[namesIndex]
+        
         if (this.state.user === this.state.people[0] && this.state.people.length < 5) {
+            this.setState({
+                people: [...this.state.people, newPerson],
+                added: [...this.state.added, namesIndex]
+            })
             fetch(`${config.API_ENDPOINT}/people`, {
                 method: 'POST',
                 headers: {
@@ -77,14 +94,10 @@ export default class AdoptionPage extends React.Component {
                     person: newPerson
                 })
             })
-            this.setState({
-                people: [...this.state.people, newPerson]
-            })
         }
-        
     }
 
-    handleAdopt = (type) => {
+    handleAdopt = (type, setAdopted) => {
         fetch(`${config.API_ENDPOINT}/pets`, {
             method: "DELETE",
             headers: {
@@ -98,11 +111,13 @@ export default class AdoptionPage extends React.Component {
         .then(data => {
             if (type === 'dog') {
                 this.setState({
-                    pets: [this.state.pets[0], data[1]]
+                    pets: [this.state.pets[0], data[1]],
+                    adopted: setAdopted ? true : false
                 })
             }else {
                 this.setState({
-                    pets: [data[1], this.state.pets[1]]
+                    pets: [data[1], this.state.pets[1]],
+                    adopted: setAdopted ? true : false
                 })
             }
         })
@@ -110,7 +125,13 @@ export default class AdoptionPage extends React.Component {
 
     render() {
         return(
+            <>
+            { this.state.adopted
+                ? <div className='adopt_message'><p>Congrats! You just adopted a pet.</p></div>
+                : null
+            }
             <div className='Adopt_main'>
+                
                 <div className='pet_container'>
                 {this.state.pets.map((pet, idx) => {
                     return (
@@ -122,7 +143,7 @@ export default class AdoptionPage extends React.Component {
                             <li>{pet.breed}</li>
                             <li>{pet.age}</li>
                             <li>{pet.gender}</li>
-                            {this.state.user === this.state.people[0] ? <button onClick={() => {this.handleAdopt(pet.type)}}>Adopt</button> : null}
+                            {this.state.user === this.state.people[0] ? <button onClick={() => {this.handleAdopt(pet.type, true)}}>Adopt</button> : null}
                         </ul>
                     )
                 })}
@@ -135,6 +156,7 @@ export default class AdoptionPage extends React.Component {
                     </form>
                 </div>
             </div>
+            </>
         )
     }
 }
