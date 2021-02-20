@@ -8,8 +8,8 @@ export default class PeopleLine extends React.Component {
     render() {
         return (
             <div className='line'>
-                {this.props.people.map(person => {
-                    return <p className='person'>{person}</p>
+                {this.props.people.map((person, idx) => {
+                    return <p className='person' key={idx}>{person}</p>
                 })}
             </div>
         )
