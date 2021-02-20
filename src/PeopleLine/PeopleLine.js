@@ -7,7 +7,7 @@ export default class PeopleLine extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div className='line'>
                 {this.props.people.map(person => {
                     return <p className='person'>{person}</p>
                 })}

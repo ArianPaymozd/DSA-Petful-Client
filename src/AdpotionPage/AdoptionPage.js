@@ -127,7 +127,7 @@ export default class AdoptionPage extends React.Component {
                     )
                 })}
                 </div>
-                <div>
+                <div className='line-container'>
                     <PeopleLine people={this.state.people}/>
                     <form onSubmit={this.handleAddPerson}>
                         <input type='text' name='person_name' aria-label='name input' />
