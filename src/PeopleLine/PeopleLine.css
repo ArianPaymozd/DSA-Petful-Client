@@ -9,3 +9,19 @@
     font-weight: bolder;
     font-size: 120%;
 }
+
+@media only screen and (max-width: 500px) {
+    .line {
+        display: grid;
+        place-items: center;
+        text-align: center;
+        margin: 2vh 0;
+    }
+
+    .person {
+        margin: 1vh 0;
+        display: flex;
+        text-align: center;
+        width: 50%;
+    }
+}

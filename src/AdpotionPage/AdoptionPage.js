@@ -112,11 +112,11 @@ export default class AdoptionPage extends React.Component {
         return(
             <div className='Adopt_main'>
                 <div className='pet_container'>
-                {this.state.pets.map(pet => {
+                {this.state.pets.map((pet, idx) => {
                     return (
-                        <ul className='pet_content'>
+                        <ul className='pet_content' key={idx}>
                             <li><h3 className='pet_name'>{pet.name}</h3></li>
-                            <li><img className='pet_img' src={pet.imageURL} /></li>
+                            <li><img className='pet_img' src={pet.imageURL} alt={pet.description} /></li>
                             <li>{pet.description}</li>
                             <li>{pet.story}</li>
                             <li>{pet.breed}</li>
@@ -127,7 +127,7 @@ export default class AdoptionPage extends React.Component {
                     )
                 })}
                 </div>
-                <div>
+                <div className='line-container'>
                     <PeopleLine people={this.state.people}/>
                     <form onSubmit={this.handleAddPerson}>
                         <input type='text' name='person_name' aria-label='name input' />
