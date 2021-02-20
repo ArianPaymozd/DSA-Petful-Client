@@ -6,4 +6,4 @@ play with the live app at https://dsa-petful.vercel.app/
 
 the tech stack for this app includes Node.js, React.js, Javascript, HTML, and CSS.
 
-Take a look at the client repo at https://github.com/ArianPaymozd/RideSpot-client
+Take a look at the projects API at https://github.com/ArianPaymozd/DSA-Petful_Server
