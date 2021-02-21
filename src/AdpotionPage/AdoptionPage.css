@@ -15,6 +15,8 @@
     padding: 1vw;
     background-color: aquamarine;
     border-radius: 12px;
+    max-width: 40%;
+    flex: 1;
 }
 
 .pet_img {
@@ -46,8 +48,11 @@ button {
 .adopt_message {
     text-align: center;
     width: 100vw;
-    font-size: 7vw;
+    font-size: 5.5vw;
     font-weight: bold;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 @media only screen and (max-width: 500px) {
@@ -58,11 +63,12 @@ button {
         margin: 2vh 0 0;
         flex-direction: column;
         align-items: center;
-        width: 100vw;
+        width: 99vw;
     }
     .pet_content {
         margin: 1vh 0;
         width: 80%;
+        max-width: 100%;
     }
     .line-container {
         width: 98vw;

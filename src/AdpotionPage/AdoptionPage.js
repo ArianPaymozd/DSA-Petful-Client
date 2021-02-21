@@ -8,8 +8,9 @@ export default class AdoptionPage extends React.Component {
         pets: [],
         people: [],
         added: [],
-        names: ['Max', 'Paulina', 'Tommy', 'Mike', 'Brad', 'Tanner', 'Brandon'],
-        adopted: false
+        names: ['Max', 'Paulina', 'Tommy', 'Mike', 'Brad', 'Tanner', 'Brandon', 'Justin', 'Kian', 'Sally'],
+        adopted: false,
+        hideAdopt: false
     }
 
     componentDidMount() {
@@ -31,7 +32,7 @@ export default class AdoptionPage extends React.Component {
             })
         })
         setInterval(this.handleLineDelete, 5000)
-        setInterval(this.handleLineAdd, 5000)
+        setInterval(this.handleLineAdd, 6000)
     }
 
     handleAddPerson = (e) => {
@@ -53,6 +54,16 @@ export default class AdoptionPage extends React.Component {
         
     }
 
+    handleDeleteUser = () => {
+        fetch(`${config.API_ENDPOINT}/people`, {
+            method: 'DELETE',
+        })
+        this.setState({
+            people: this.state.people.filter(person => {return person !== this.state.user}),
+            user: null
+        })
+    }
+
     handleLineDelete = () => {
         if (this.state.user && this.state.user !== this.state.people[0]) {
             const type = ['dog', 'cat']
@@ -72,15 +83,15 @@ export default class AdoptionPage extends React.Component {
         if (!this.state.added.includes(uniqueIndex)) {
             return uniqueIndex
         } else {
-            this.uniqueName()
+            return Math.floor(Math.random() * this.state.names.length) - 1
         }
     }
 
     handleLineAdd = () => {
-        let namesIndex = this.uniqueName()
-        const newPerson = this.state.names[namesIndex]
-        
-        if (this.state.user === this.state.people[0] && this.state.people.length < 5) {
+        if (this.state.people.length < 5) {
+            let namesIndex = this.uniqueName()
+            const newPerson = this.state.names[namesIndex]
+
             this.setState({
                 people: [...this.state.people, newPerson],
                 added: [...this.state.added, namesIndex]
@@ -112,14 +123,25 @@ export default class AdoptionPage extends React.Component {
             if (type === 'dog') {
                 this.setState({
                     pets: [this.state.pets[0], data[1]],
-                    adopted: setAdopted ? true : false
+                    adopted: setAdopted ? true : false,
+                    hideAdopt: setAdopted ? true : false,
                 })
             }else {
                 this.setState({
                     pets: [data[1], this.state.pets[1]],
-                    adopted: setAdopted ? true : false
+                    adopted: setAdopted ? true : false,
+                    hideAdopt: setAdopted ? true : false,
                 })
             }
+            if (setAdopted) {
+                return this.handleDeleteUser()
+            }
+        })
+    }
+
+    handleCloseMessage = () => {
+        this.setState({
+            adopted: false
         })
     }
 
@@ -127,7 +149,7 @@ export default class AdoptionPage extends React.Component {
         return(
             <>
             { this.state.adopted
-                ? <div className='adopt_message'><p>Congrats! You just adopted a pet.</p></div>
+                ? <div className='adopt_message'><p>Congrats! You just adopted a pet.</p><button onClick={this.handleCloseMessage}>X</button></div>
                 : null
             }
             <div className='Adopt_main'>
@@ -143,7 +165,7 @@ export default class AdoptionPage extends React.Component {
                             <li>{pet.breed}</li>
                             <li>{pet.age}</li>
                             <li>{pet.gender}</li>
-                            {this.state.user === this.state.people[0] ? <button onClick={() => {this.handleAdopt(pet.type, true)}}>Adopt</button> : null}
+                            {this.state.user === this.state.people[0] && !this.state.hideAdopt ? <button onClick={() => {this.handleAdopt(pet.type, true)}}>Adopt</button> : null}
                         </ul>
                     )
                 })}
